@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 
 const AnimeDetail = () => {
   const urlSamehada = process.env.NEXT_PUBLIC_SAMEHADAKU_TOP;
@@ -43,8 +44,6 @@ const AnimeDetail = () => {
   }
 
   const { isDarkMode, setIsDarkMode } = darkModeContext;
-
-  console.log(data);
 
   return (
     <div className="w-full flex min-h-screen">
@@ -164,12 +163,16 @@ const AnimeDetail = () => {
                   </div>
                 </div>
 
-                <div className={`w-full flex flex-wrap gap-3`}>
+                <div className={`w-full flex flex-wrap gap-3 `}>
                   {data[2]?.episodes?.map((item: any, index: number) => {
+                    const urlArray = item.split("/episode/")[1];
+
                     return (
-                      <>
-                        <Button color="primary">Episode {index + 1}</Button>
-                      </>
+                      <Link href={`/episode/${urlArray}`}>
+                        <Button color="primary" size="small">
+                          {urlArray}
+                        </Button>
+                      </Link>
                     );
                   })}
                 </div>
