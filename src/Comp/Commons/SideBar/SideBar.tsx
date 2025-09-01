@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
+import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
 import { useContext } from "react";
 import {
@@ -31,11 +32,13 @@ const SideBar = (props: PropTypes) => {
 
   const { isDarkMode, setIsDarkMode } = darkModeContext;
 
+  const isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
   return (
     <div
       className={`w-2/8 ${
         isDarkMode ? "bg-white" : "bg-black"
-      } min-h-screen pt-9 pl-11 pr-11`}
+      } min-h-screen pt-9 pl-11 pr-11 ${isMobile ? "hidden" : "block"}`}
     >
       <div className="sticky top-0">
         <div className="">

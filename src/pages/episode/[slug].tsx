@@ -1,8 +1,11 @@
 import CompleteAnime from "@/Comp/Commons/CompleteAnime";
 import SideBar from "@/Comp/Commons/SideBar";
 import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
+import Button from "@mui/material/Button";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
+import { url } from "inspector";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { FaCalendarAlt, FaUser } from "react-icons/fa";
@@ -28,19 +31,15 @@ const VideoPage = () => {
     axios.get(`${urlSamehada}/episode/${slug}`).then((res) => {
       setData(res?.data[0]);
     });
-  }, [slug]);
-
-  useEffect(() => {
-    if (!slug) return;
     axios
-      .get(`${urlSamehada}/anime/${slug}`)
+      .get(`${urlSamehada}/anime/${localStorage.getItem("title")}`)
       .then((res) => {
         setDataSecond(res.data);
       })
       .catch((err) => console.error(err));
   }, [slug]);
 
-  console.log(slug);
+  console.log(dataSecond[2]?.episodes);
 
   return (
     <div className="w-full flex min-h-screen">
@@ -106,6 +105,27 @@ const VideoPage = () => {
                     className={`w-5/6 h-[450px] rounded-lg border-2 border-white`}
                     allowFullScreen={true}
                   />
+                </div>
+
+                <div className={`pt-5`}>
+                  {dataSecond.length === 0 ? (
+                    <></>
+                  ) : (
+                    <>
+                      {dataSecond[2]?.episodes.map(
+                        (item: any, index: number) => {
+                          const urlArray = item.split("/episode/")[1];
+                          return (
+                            <Link href={`/episode/${urlArray}`}>
+                              <Button color="primary" size="small">
+                                {urlArray}
+                              </Button>
+                            </Link>
+                          );
+                        }
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             </div>

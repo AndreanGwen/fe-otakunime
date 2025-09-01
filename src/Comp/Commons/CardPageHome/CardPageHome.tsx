@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { FaCalendarAlt, FaPlay } from "react-icons/fa";
+import { useMediaQuery } from "react-responsive";
 
 const CardPageHome = () => {
   const urlSamehada = process.env.NEXT_PUBLIC_SAMEHADAKU_TOP;
@@ -23,6 +24,7 @@ const CardPageHome = () => {
   }
 
   const { isDarkMode, setIsDarkMode } = darkModeContext;
+  const isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   return (
     <>
@@ -197,14 +199,14 @@ const CardPageHome = () => {
               <div className="">
                 <Link href={`/anime/${newTitle}`}>
                   <div
-                    className={`flex w-[430px] gap-2  ${
+                    className={`flex  gap-2  ${
                       isDarkMode ? "shadow-lg" : "bg-white/15"
-                    } rounded-xl p-2`}
+                    } rounded-xl p-2 ${isMobile ? "w-28" : "w-[430px]"}`}
                   >
                     <Image
                       src={item?.image}
                       alt={`animePhotos`}
-                      width={75}
+                      width={isMobile ? 20 : 75}
                       height={0}
                       className="rounded-xl"
                     />

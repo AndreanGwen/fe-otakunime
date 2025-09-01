@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
+import { useMediaQuery } from "react-responsive";
+import { setMaxIdleHTTPParsers } from "node:http";
 
 const CompleteAnime = () => {
   const urlSamehada = process.env.NEXT_PUBLIC_SAMEHADAKU_TOP;
@@ -28,6 +30,9 @@ const CompleteAnime = () => {
   }
 
   const { isDarkMode, setIsDarkMode } = darkModeContext;
+  const isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
+  // console.log(trending);
 
   return (
     <div className="pt-7 flex flex-col">

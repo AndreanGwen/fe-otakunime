@@ -45,6 +45,8 @@ const AnimeDetail = () => {
 
   const { isDarkMode, setIsDarkMode } = darkModeContext;
 
+  // console.log(slug);
+
   return (
     <div className="w-full flex min-h-screen">
       <SideBar
@@ -168,7 +170,12 @@ const AnimeDetail = () => {
                     const urlArray = item.split("/episode/")[1];
 
                     return (
-                      <Link href={`/episode/${urlArray}`}>
+                      <Link
+                        href={`/episode/${urlArray}`}
+                        onClick={() =>
+                          localStorage.setItem("title", slug as string)
+                        }
+                      >
                         <Button color="primary" size="small">
                           {urlArray}
                         </Button>

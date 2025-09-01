@@ -6,6 +6,7 @@ import CompleteAnime from "../CompleteAnime";
 import CardPageHome from "../CardPageHome";
 import { useContext } from "react";
 import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
+import { useMediaQuery } from "react-responsive";
 
 const Navbar = () => {
   const darkModeContext = useContext(DarkModeContext);
@@ -15,9 +16,10 @@ const Navbar = () => {
   }
 
   const { isDarkMode, setIsDarkMode } = darkModeContext;
+  const isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   return (
-    <div className="flex flex-col w-full">
+    <div className={`flex flex-col w-full ${isMobile ? "" : ""}`}>
       {/* Navbar */}
       <div
         className={`w-full h-15 ${
@@ -96,7 +98,7 @@ const Navbar = () => {
         <div
           className={`w-3/8 min-h-screen ${
             isDarkMode ? "bg-white" : "bg-black"
-          } pr-13 pt-8`}
+          } pr-13 pt-8 ${isMobile ? "" : ""}`}
         >
           <SearchBar />
           <CompleteAnime />
