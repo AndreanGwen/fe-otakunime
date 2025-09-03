@@ -1,216 +1,188 @@
+import * as React from "react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+
+import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
+import { FaNetworkWired } from "react-icons/fa";
+import axios from "axios";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Genre = () => {
+  const darkModeContext = React.useContext(DarkModeContext);
+
+  if (!darkModeContext) {
+    throw new Error("DarkModeContext must be used inside DarkModeProvider");
+  }
+
+  const { isDarkMode, setIsDarkMode } = darkModeContext;
+  const urlOtakudesu = process.env.NEXT_PUBLIC_SAMEHADAKU_TOP;
+  const [data, setData] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    axios.get(`${urlOtakudesu}/genre-list`).then((res) => {
+      setData(res.data);
+    });
+  }, []);
+
   return (
-    <>
-      <Link href={`/genre/action`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Action
+    <div className="w-full h-fit">
+      {data.length === 0 ? (
+        <div className={`flex pt-4 flex-wrap gap-6`}>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>{" "}
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-[150px]" />
+            </div>
+          </div>
         </div>
-      </Link>
-
-      <Link href={`/genre/adventure`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
+      ) : (
+        <List
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
         >
-          Adventure
-        </div>
-      </Link>
-
-      <Link href={`/genre/comedy`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Comedy
-        </div>
-      </Link>
-
-      <Link href={`/genre/drama`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Drama
-        </div>
-      </Link>
-
-      <Link href={`/genre/fantasy`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Fantasy
-        </div>
-      </Link>
-
-      <Link href={`/genre/shounen`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Shounen
-        </div>
-      </Link>
-
-      <Link href={`/genre/super-power`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Super Power
-        </div>
-      </Link>
-
-      <Link href={`/genre/adult-cast`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Adult Cast
-        </div>
-      </Link>
-
-      <Link href={`/genre/military`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Military
-        </div>
-      </Link>
-
-      <Link href={`/genre/sci-fi`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Sci-Fi
-        </div>
-      </Link>
-
-      <Link href={`/genre/urban-fantasy`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Urban Fantasy
-        </div>
-      </Link>
-
-      <Link href={`/genre/supernatural`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Supernatural
-        </div>
-      </Link>
-
-      <Link href={`/genre/organized-crime`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Organized Crime
-        </div>
-      </Link>
-
-      <Link href={`/genre/reincarnation`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Reincarnation
-        </div>
-      </Link>
-
-      <Link href={`/genre/mythology`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Mythology
-        </div>
-      </Link>
-
-      <Link href={`/genre/isekai`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Isekai
-        </div>
-      </Link>
-
-      <Link href={`/genre/romance`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Romance
-        </div>
-      </Link>
-
-      <Link href={`/genre/harem`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Harem
-        </div>
-      </Link>
-
-      <Link href={`/genre/school`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          School
-        </div>
-      </Link>
-
-      <Link href={`/genre/parody`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Parody
-        </div>
-      </Link>
-
-      <Link href={`/genre/seinen`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Seinen
-        </div>
-      </Link>
-
-      <Link href={`/genre/slice-of-life`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Slice of Life
-        </div>
-      </Link>
-
-      <Link href={`/genre/video-game`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Video Game
-        </div>
-      </Link>
-
-      <Link href={`/genre/horror`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Horror
-        </div>
-      </Link>
-
-      <Link href={`/genre/mystery`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Mystery
-        </div>
-      </Link>
-
-      <Link href={`/genre/josei`}>
-        <div
-          className={`w-52 h-12 bg-white/20 rounded-sm text-white flex items-center justify-center`}
-        >
-          Josei
-        </div>
-      </Link>
-    </>
+          {data.map((item: any) => (
+            <Link
+              href={`/genres/${item.genre.replaceAll(" ", "-").toLowerCase()}`}
+              onClick={() =>
+                localStorage.setItem(
+                  "genre",
+                  item.genre.replaceAll(" ", "-").toLowerCase()
+                )
+              }
+            >
+              <ListItem
+                sx={{
+                  width: "200px",
+                  height: "60px",
+                  bgcolor: isDarkMode ? "" : "",
+                  color: isDarkMode ? "#000000" : "#ffffff",
+                }}
+                className="shadow-sm"
+              >
+                <ListItemAvatar>
+                  <Avatar>
+                    <FaNetworkWired />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${item.genre}`}
+                  className="hover:underline"
+                />
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      )}
+    </div>
   );
 };
 export default Genre;

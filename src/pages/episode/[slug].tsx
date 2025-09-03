@@ -69,7 +69,10 @@ const VideoPage = () => {
               <div className={`pt-10.5 `}>
                 <IoIosArrowBack
                   size={25}
-                  onClick={() => router.back()}
+                  onClick={() => {
+                    router.back();
+                    localStorage.removeItem("title");
+                  }}
                   className="cursor-pointer bg-red-200 flex items-center justify-center rounded-full p-1"
                 />
               </div>

@@ -122,7 +122,7 @@ const AnimeDetail = () => {
                         <strong>Skor :</strong>
                         {result?.Skor}
                       </h1>
-                      <h1 className={`flex gap-2`}>
+                      <h1 className={`flex gap-2 truncate`}>
                         <strong>Produser :</strong>
                         {result?.Produser}
                       </h1>

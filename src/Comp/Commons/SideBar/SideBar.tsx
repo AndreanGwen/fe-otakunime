@@ -83,7 +83,7 @@ const SideBar = (props: PropTypes) => {
               </p>
             </div>
           </Link>
-          <Link href={`/genre-list/show`}>
+          <Link href={`/genre-list/`}>
             <div className="flex items-center gap-3">
               <TbMovie color={`${GenreList}`} size={25} />
               <p className={`text-sm`} style={{ color: `${GenreList}` }}>
