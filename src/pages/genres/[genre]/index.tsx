@@ -2,8 +2,12 @@ import CompleteAnime from "@/Comp/Commons/CompleteAnime";
 import GenreCards from "@/Comp/Commons/GenreCards";
 import SideBar from "@/Comp/Commons/SideBar";
 import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
 
 const Page = () => {
@@ -17,6 +21,23 @@ const Page = () => {
 
   const router = useRouter();
   const genre = router.query.genre;
+
+  const urlOtakudesu = process.env.NEXT_PUBLIC_SAMEHADAKU_TOP;
+  const [data, setData] = useState<any>([]);
+  const [genreLocal, setGenreLocal] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedGenre = localStorage.getItem("genre");
+    setGenreLocal(storedGenre);
+
+    if (!storedGenre) {
+      return;
+    }
+
+    axios.get(`${urlOtakudesu}/genres/${storedGenre}`).then((res) => {
+      setData(res.data);
+    });
+  }, []);
 
   return (
     <div className={`w-full flex`}>
@@ -33,7 +54,11 @@ const Page = () => {
         } flex pt-9`}
       >
         <div className="">
-          <div className={`flex items-center gap-1`}>
+          <div
+            className={`flex items-center gap-1 ${
+              isDarkMode ? "text-black" : "text-white"
+            }`}
+          >
             <GoChevronLeft
               size={30}
               className={`cursor-pointer`}
@@ -45,8 +70,28 @@ const Page = () => {
             <h1 className={`text-2xl font-semibold`}>Daftar Genre {genre}</h1>
           </div>
 
-          <div className="">
+          <div className={`pb-5`}>
             <GenreCards />
+          </div>
+
+          <div className={`pt-7 pb-16 flex justify-center`}>
+            <Pagination
+              count={data[17]?.count}
+              shape="rounded"
+              renderItem={(item) => {
+                return (
+                  <PaginationItem
+                    component={Link}
+                    href={
+                      item.page === 1
+                        ? `/genres/${genreLocal}`
+                        : `/genres/${genreLocal}/page/${item.page}`
+                    }
+                    {...item}
+                  />
+                );
+              }}
+            />
           </div>
         </div>
       </div>

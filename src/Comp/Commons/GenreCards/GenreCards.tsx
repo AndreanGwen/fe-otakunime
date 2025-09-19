@@ -1,21 +1,29 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
 import axios from "axios";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const GenreCards = () => {
   const urlOtakudesu = process.env.NEXT_PUBLIC_SAMEHADAKU_TOP;
-  const genre = localStorage.getItem("genre");
   const [data, setData] = useState<any>([]);
 
   useEffect(() => {
+    const genre = localStorage.getItem("genre");
+    if (!genre) {
+      return;
+    }
     axios.get(`${urlOtakudesu}/genres/${genre}`).then((res) => {
-      console.log(res.data);
       setData(res.data);
     });
   }, []);
 
-  //   console.log(genre);
+  const darkModeContext = useContext(DarkModeContext);
+
+  if (!darkModeContext) {
+    throw new Error("DarkModeContext must be used inside DarkModeProvider");
+  }
+
+  const { isDarkMode, setIsDarkMode } = darkModeContext;
 
   return (
     <div className={`pt-8 flex flex-wrap gap-4`}>
@@ -312,39 +320,65 @@ const GenreCards = () => {
       ) : (
         <>
           {" "}
-          {data.map((item: any) => {
+          {data.slice(0, 15).map((item: any) => {
             return (
-              <div className={`w-[320px] h-fit bg-white shadow-md`}>
+              <div
+                className={`w-[320px] h-fit  shadow-md ${
+                  isDarkMode ? "bg-white" : "bg-black"
+                }`}
+              >
                 <div
-                  className={`w-full h-[57px] bg-white pt-3 flex justify-center text-sm font-semibold text-red-400 border border-black/20`}
+                  className={`w-full h-[57px] ${
+                    isDarkMode
+                      ? "bg-white border border-black/20"
+                      : "bg-black  border border-white/20"
+                  } pt-3 flex justify-center text-sm font-semibold text-red-400`}
                 >
                   {item?.animeTitle}
                 </div>
 
                 <div
-                  className={`w-full h-[23px] bg-white flex justify-between`}
+                  className={`w-full h-[23px] ${
+                    isDarkMode ? "bg-white" : "bg-black"
+                  } flex justify-between`}
                 >
                   <div
-                    className={`w-[100px] h-full text-[10px] flex items-center p-2 truncate overflow-x-auto border border-black/20`}
+                    className={`w-[100px] h-full text-[10px] flex items-center p-2 truncate overflow-x-auto border  ${
+                      isDarkMode
+                        ? "border-black/20 text-black"
+                        : "border-white/20 text-white"
+                    }`}
                   >
                     {item?.animeStudio}
                   </div>
                   <div
-                    className={`w-[100px] h-full text-[10px] flex items-center p-2 truncate overflow-x-auto border border-black/20`}
+                    className={`w-[100px] h-full text-[10px] flex items-center p-2 truncate overflow-x-auto border  ${
+                      isDarkMode
+                        ? "border-black/20 text-black"
+                        : "border-white/20 text-white"
+                    }`}
                   >
                     {item?.animeEpisode}
                   </div>
                   <div
-                    className={`w-[100px] h-full text-[10px] flex items-center p-2 truncate overflow-x-auto border border-black/20`}
+                    className={`w-[100px] h-full text-[10px] flex items-center p-2 truncate overflow-x-auto border  ${
+                      isDarkMode
+                        ? "border-black/20 text-black"
+                        : "border-white/20 text-white"
+                    }`}
                   >
                     {item?.animeStudio}
                   </div>
                 </div>
 
                 <div
-                  className={`w-full h-[23px] bg-white border border-black/20 flex justify-center items-center truncate text-[10px]`}
+                  className={`w-full h-[23px] ${
+                    isDarkMode
+                      ? "bg-white text-black border-black/20"
+                      : "bg-black text-white border-white/20"
+                  } border  flex justify-center items-center truncate text-[10px]`}
                 >
-                  {item?.animeGenre.join(", ")}
+                  {item?.animeGenre}
                 </div>
 
                 <div className={`w-full h-fit flex`}>
@@ -352,12 +386,22 @@ const GenreCards = () => {
 
                   <div className={`flex flex-col justify-between w-full h-fit`}>
                     <div
-                      className={`overflow-auto w-[225px] h-[117px] text-[10px] pl-2 border border-black/20`}
+                      className={`overflow-auto w-[225px] h-[117px] text-[10px] pl-2 border ${
+                        isDarkMode
+                          ? "border-black/20"
+                          : "border-white/20 text-white"
+                      }`}
                     >
-                      {item?.animeDescription}
+                      {item?.animeDescription
+                        ? item?.animeDescription
+                        : "Data Not Found"}
                     </div>
                     <div
-                      className={`w-[225px] h-[25px] bg-white border border-black/20 flex justify-center items-center truncate text-[10px]`}
+                      className={`w-[225px] h-[25px] ${
+                        isDarkMode
+                          ? "bg-white border-black/20 text-black"
+                          : "bg-black border-white/20 text-white"
+                      } border  flex justify-center items-center truncate text-[10px]`}
                     >
                       {item?.animeDate}
                     </div>
