@@ -5,6 +5,7 @@ import { DarkModeContext } from "@/context/darkModeContext/darkModeContext";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import axios from "axios";
+import { count } from "console";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -90,6 +91,9 @@ const Page = () => {
                     {...item}
                   />
                 );
+              }}
+              onChange={(_, page) => {
+                localStorage.setItem("page", page.toString());
               }}
             />
           </div>
